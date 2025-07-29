@@ -8,6 +8,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background-color: black; /* Fondo negro por defecto */
   color: white;
   text-align: center;
   overflow-x: hidden;
@@ -36,9 +37,12 @@ h1, h2, h3 {
   height: 100vh;
   z-index: -1;
   overflow: hidden;
+  background-image: url('imagenes/fondo1.jpg'); /* Mostrar imagen 1 de inmediato */
+  background-size: cover;
+  background-position: center;
 }
 
-/* Capas para las 3 imágenes de fondo */
+/* Capas animadas (solo fade por encima del fondo ya fijo) */
 .slideshow::before,
 .slideshow::after,
 .slideshow::marker {
@@ -57,18 +61,18 @@ h1, h2, h3 {
 }
 
 .slideshow::before {
-  background-image: url('imagenes/fondo1.jpg');
-  animation-delay: 0s;
-}
-
-.slideshow::after {
   background-image: url('imagenes/fondo2.jpg');
   animation-delay: 10s;
 }
 
-.slideshow::marker {
+.slideshow::after {
   background-image: url('imagenes/fondo3.jpg');
   animation-delay: 20s;
+}
+
+.slideshow::marker {
+  background-image: url('imagenes/fondo2.jpg');
+  animation-delay: 30s; /* opcional, puedes repetir alguna o eliminar */
 }
 
 @keyframes fondoFade {
@@ -99,4 +103,5 @@ button {
   opacity: 0.85;
   z-index: 10;
 }
+
 
