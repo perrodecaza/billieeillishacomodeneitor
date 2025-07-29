@@ -37,15 +37,11 @@ h1, h2, h3 {
   height: 100vh;
   z-index: -1;
   overflow: hidden;
-  background-image: url('imagenes/fondo1.jpg'); /* Mostrar imagen 1 de inmediato */
-  background-size: cover;
-  background-position: center;
 }
 
-/* Capas animadas (solo fade por encima del fondo ya fijo) */
+/* Dos capas con opacidad para transiciones */
 .slideshow::before,
-.slideshow::after,
-.slideshow::marker {
+.slideshow::after {
   content: "";
   position: absolute;
   top: 0; left: 0;
@@ -61,24 +57,19 @@ h1, h2, h3 {
 }
 
 .slideshow::before {
-  background-image: url('imagenes/fondo2.jpg');
-  animation-delay: 10s;
+  background-image: url('imagenes/fondo1.jpg');
+  animation-delay: 0s;
 }
 
 .slideshow::after {
-  background-image: url('imagenes/fondo3.jpg');
-  animation-delay: 20s;
-}
-
-.slideshow::marker {
   background-image: url('imagenes/fondo2.jpg');
-  animation-delay: 30s; /* opcional, puedes repetir alguna o eliminar */
+  animation-delay: 15s;
 }
 
 @keyframes fondoFade {
-  0%, 30%   { opacity: 0; }
-  35%, 60%  { opacity: 0.4; }
-  65%, 100% { opacity: 0; }
+  0%, 40%   { opacity: 0; }
+  50%, 90%  { opacity: 0.3; }
+  100%      { opacity: 0; }
 }
 
 input, button {
@@ -103,5 +94,6 @@ button {
   opacity: 0.85;
   z-index: 10;
 }
+
 
 
