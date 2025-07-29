@@ -8,37 +8,46 @@
 <body>
   <h1>¿De dónde podrías ser según el color de tu piel?</h1>
 
-  <!-- Input del color -->
-  <input type="text" id="hexInput" placeholder="#d2a679" />
-
-  <!-- Elección de ojos -->
-  <h3>¿Cómo son tus ojos?</h3>
-  <div id="ojos">
-    <label>
-      <input type="radio" name="ojos" value="claros"> 
-      <img src="imagenes/ojos-claros.jpg" alt="Ojos claros" width="80">
-    </label>
-    <label>
-      <input type="radio" name="ojos" value="oscuros">
-      <img src="imagenes/ojos-oscuros.jpg" alt="Ojos oscuros" width="80">
-    </label>
-    <label>
-      <input type="radio" name="ojos" value="asiaticos">
-      <img src="imagenes/ojos-asiaticos.jpg" alt="Ojos asiáticos" width="80">
-    </label>
+  <!-- PANTALLA 1: Color de piel -->
+  <div id="pantalla1">
+    <input type="text" id="hexInput" placeholder="#d2a679" />
+    <br><br>
+    <button onclick="irAPantalla2()">Siguiente</button>
   </div>
 
-  <!-- Botón -->
-  <button onclick="analizarColor()">Enviar</button>
-
-  <!-- Resultado -->
-  <div id="resultado" style="display:none;">
-    <h2 id="titulo"></h2>
-    <p id="descripcion"></p>
-    <img id="imagen" src="" alt="Resultado" />
+  <!-- PANTALLA 2: Tipo de ojos -->
+  <div id="pantalla2" style="display:none;">
+    <h3>¿Cómo son tus ojos?</h3>
+    <div id="ojos">
+      <label>
+        <input type="radio" name="ojos" value="claros"> 
+        <img src="imagenes/ojos-claros.jpg" alt="Ojos claros" width="80">
+      </label>
+      <label>
+        <input type="radio" name="ojos" value="oscuros">
+        <img src="imagenes/ojos-oscuros.jpg" alt="Ojos oscuros" width="80">
+      </label>
+      <label>
+        <input type="radio" name="ojos" value="asiaticos">
+        <img src="imagenes/ojos-asiaticos.jpg" alt="Ojos asiáticos" width="80">
+      </label>
+    </div>
+    <br>
+    <button onclick="analizarColor()">Enviar</button>
   </div>
+
+<!-- RESULTADO / Pantalla 3 -->
+<div id="pantalla3" style="display:none;">
+  <h2 id="titulo"></h2>
+  <p id="descripcion"></p>
+  <img id="imagen" src="" alt="Resultado" />
+  <br><br>
+  <button onclick="reiniciar()">Volver a empezar</button>
+</div>
+
 
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 </body>
 </html>
-

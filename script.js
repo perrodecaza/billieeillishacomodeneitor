@@ -1,3 +1,14 @@
+function irAPantalla2() {
+  const hex = document.getElementById('hexInput').value.trim().toLowerCase();
+  if (!/^#?[0-9a-f]{3,6}$/i.test(hex)) {
+    alert("Introduce un código HEX válido.");
+    return;
+  }
+
+  // Guardar temporalmente y pasar a la pantalla 2
+  document.getElementById('pantalla1').style.display = 'none';
+  document.getElementById('pantalla2').style.display = 'block';
+}
 function hexToRgb(hex) {
   hex = hex.replace("#", "");
   if (hex.length === 3) {
@@ -82,7 +93,7 @@ function analizarColor() {
   // Colores broma
   for (const broma of coloresBroma) {
     if (broma.test(rgb)) {
-      mostrarResultado(broma.nombre, `Perteneces a la región ficticia de ${broma.nombre}.`, `${broma.nombre.toLowerCase()}.jpg`);
+      mostrarResultado(broma.nombre, `Bro tu gente se encuentra en ${broma.nombre}.`, `${broma.nombre.toLowerCase()}.jpg`);
       return;
     }
   }
@@ -117,7 +128,10 @@ if (elegido === "Gaylandia") {
 }
 
 function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
-  const resultadoDiv = document.getElementById('resultado');
+  document.getElementById('pantalla1').style.display = 'none';
+  document.getElementById('pantalla2').style.display = 'none';
+  document.getElementById('pantalla3').style.display = 'block';
+
   const titulo = document.getElementById('titulo');
   const descripcion = document.getElementById('descripcion');
   const imagen = document.getElementById('imagen');
@@ -125,6 +139,24 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
   imagen.src = `imagenes/${imagenArchivo}`;
-  resultadoDiv.style.display = "block";
+  
+  // Lanza el confeti 🎉
+confetti({
+  particleCount: 150,
+  spread: 70,
+  origin: { y: 0.6 }
+});
+
 }
+
+function reiniciar() {
+  // Limpiar datos
+  document.getElementById('hexInput').value = '';
+  document.querySelectorAll('input[name="ojos"]').forEach(input => input.checked = false);
+
+  // Mostrar pantalla inicial
+  document.getElementById('pantalla3').style.display = 'none';
+  document.getElementById('pantalla1').style.display = 'block';
+}
+
 
