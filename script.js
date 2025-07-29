@@ -159,4 +159,8 @@ function reiniciar() {
   document.getElementById('pantalla1').style.display = 'block';
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+  const slideshow = document.querySelector('.slideshow');
+  slideshow.classList.add('fade-in-inicial');
+});
 
