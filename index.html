@@ -12,14 +12,14 @@
   <h1>¿De dónde podrías ser según el color de tu piel?</h1>
 
   <!-- PANTALLA 1: Color de piel -->
-  <div id="pantalla1">
+  <div class="contenedor" id="pantalla1">
     <input type="text" id="hexInput" placeholder="#d2a679" />
     <br><br>
     <button onclick="irAPantalla2()">Siguiente</button>
   </div>
 
   <!-- PANTALLA 2: Tipo de ojos -->
-  <div id="pantalla2" style="display:none;">
+  <div class="contenedor" id="pantalla2" style="display:none;">
     <h3>¿Cómo son tus ojos?</h3>
     <div id="ojos">
       <label>
@@ -40,7 +40,7 @@
   </div>
 
 <!-- RESULTADO / Pantalla 3 -->
-<div id="pantalla3" style="display:none;">
+<div class="contenedor" id="pantalla3" style="display:none;">
   <h2 id="titulo"></h2>
   <p id="descripcion"></p>
   <img id="imagen" src="" alt="Resultado" />
