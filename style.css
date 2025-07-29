@@ -8,7 +8,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: black; /* Fondo negro por defecto */
+  background-color: black;
   color: white;
   text-align: center;
   overflow-x: hidden;
@@ -39,9 +39,10 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* Dos capas con opacidad para transiciones */
+/* Tres capas con opacidad para transiciones */
 .slideshow::before,
-.slideshow::after {
+.slideshow::after,
+.slideshow::backdrop {
   content: "";
   position: absolute;
   top: 0; left: 0;
@@ -51,25 +52,51 @@ h1, h2, h3 {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  animation: fondoFade 30s infinite;
+  animation: fondoFade 45s infinite;
   animation-timing-function: ease-in-out;
   transition: opacity 2s ease-in-out;
 }
 
+/* Primera capa */
 .slideshow::before {
   background-image: url('imagenes/fondo1.jpg');
   animation-delay: 0s;
 }
 
+/* Segunda capa */
 .slideshow::after {
   background-image: url('imagenes/fondo2.jpg');
   animation-delay: 15s;
 }
 
+/* Tercera capa (usamos un pseudoelemento simulado con ::before extra usando backdrop-filter) */
+.slideshow::backdrop {
+  background-image: url('imagenes/fondo3.jpg');
+  animation-delay: 30s;
+}
+
+/* Para insertar la tercera capa realmente, usaremos un div extra */
+.slideshow .fondo3 {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('imagenes/fondo3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: fondoFade 45s infinite;
+  animation-delay: 30s;
+  transition: opacity 2s ease-in-out;
+}
+
+/* Animación de opacidad para cada fondo */
 @keyframes fondoFade {
-  0%, 40%   { opacity: 0; }
-  50%, 90%  { opacity: 0.3; }
-  100%      { opacity: 0; }
+  0%, 30%   { opacity: 0; }
+  35%, 65%  { opacity: 0.3; }
+  70%, 100% { opacity: 0; }
 }
 
 input, button {
@@ -94,6 +121,7 @@ button {
   opacity: 0.85;
   z-index: 10;
 }
+
 
 
 
