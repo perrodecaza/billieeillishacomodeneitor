@@ -1,23 +1,61 @@
-body {
-  font-family: sans-serif;
-  text-align: center;
-  background-color: #f4f4f4;
-  padding: 30px;
+/* style.css */
+
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.4);
+  animation: cambiarFondo 20s infinite;
+  z-index: -1;
 }
 
-input {
+@keyframes cambiarFondo {
+  0%   { background-image: url('imagenes/fondo1.jpg'); }
+  33%  { background-image: url('imagenes/fondo2.jpg'); }
+  66%  { background-image: url('imagenes/fondo3.jpg'); }
+  100% { background-image: url('imagenes/fondo1.jpg'); }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Bitcount Prop Single', sans-serif;
+  color: white;
+}
+
+.contenedor {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 50px auto;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+input, button {
   padding: 10px;
-  width: 200px;
-  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-left: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
 }
 
-#imagen {
-  max-width: 300px;
-  margin-top: 20px;
+.creditos {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 120px;
+  opacity: 0.85;
+  z-index: 10;
 }
