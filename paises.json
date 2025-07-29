@@ -1,0 +1,17 @@
+{
+  "claro": {
+    "claros": ["Suecia", "Noruega", "Finlandia", "Rusia"],
+    "oscuros": ["España", "Italia", "Argentina", "Chile", "USA"],
+    "asiaticos": ["Japón", "Corea del Sur", "China"]
+  },
+  "medio": {
+    "claros": ["Portugal", "Turquía", "Uzbekistán"],
+    "oscuros": ["México", "Colombia", "Perú", "Brasil", "India", "USA"],
+    "asiaticos": ["Vietnam", "Tailandia", "Filipinas", "Malasia"]
+  },
+  "oscuro": {
+    "claros": ["Sudáfrica"],
+    "oscuros": ["Nigeria", "Angola", "Etiopía", "Camerún", "Kenia"],
+    "asiaticos": ["Papúa Nueva Guinea", "Indonesia"]
+  }
+}

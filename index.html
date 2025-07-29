@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ColorMapa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>¿De dónde podrías ser según el color de tu piel?</h1>
+
+  <!-- Input del color -->
+  <input type="text" id="hexInput" placeholder="#d2a679" />
+
+  <!-- Elección de ojos -->
+  <h3>¿Cómo son tus ojos?</h3>
+  <div id="ojos">
+    <label>
+      <input type="radio" name="ojos" value="claros"> 
+      <img src="imagenes/ojos-claros.jpg" alt="Ojos claros" width="80">
+    </label>
+    <label>
+      <input type="radio" name="ojos" value="oscuros">
+      <img src="imagenes/ojos-oscuros.jpg" alt="Ojos oscuros" width="80">
+    </label>
+    <label>
+      <input type="radio" name="ojos" value="asiaticos">
+      <img src="imagenes/ojos-asiaticos.jpg" alt="Ojos asiáticos" width="80">
+    </label>
+  </div>
+
+  <!-- Botón -->
+  <button onclick="analizarColor()">Enviar</button>
+
+  <!-- Resultado -->
+  <div id="resultado" style="display:none;">
+    <h2 id="titulo"></h2>
+    <p id="descripcion"></p>
+    <img id="imagen" src="" alt="Resultado" />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
