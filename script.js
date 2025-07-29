@@ -5,7 +5,7 @@ function irAPantalla2() {
     return;
   }
 
-  // Guardar temporalmente y pasar a la pantalla 2
+  // Mostrar pantalla 2
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'block';
 }
@@ -139,7 +139,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
   imagen.src = `imagenes/${imagenArchivo}`;
-  
+
   // Lanza el confeti 🎉
 confetti({
   particleCount: 150,
