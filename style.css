@@ -10,6 +10,7 @@ body {
   min-height: 100vh;
   color: white;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .contenedor {
@@ -20,6 +21,7 @@ body {
   margin: 30px auto;
   max-width: 600px;
   text-align: center;
+  z-index: 1;
 }
 
 h1, h2, h3 {
@@ -36,9 +38,10 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* Dos capas con opacidad para transiciones */
+/* Capas para las 3 imágenes de fondo */
 .slideshow::before,
-.slideshow::after {
+.slideshow::after,
+.slideshow::marker {
   content: "";
   position: absolute;
   top: 0; left: 0;
@@ -48,7 +51,7 @@ h1, h2, h3 {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  animation: fondoFade 20s infinite;
+  animation: fondoFade 30s infinite;
   animation-timing-function: ease-in-out;
   transition: opacity 2s ease-in-out;
 }
@@ -63,10 +66,15 @@ h1, h2, h3 {
   animation-delay: 10s;
 }
 
+.slideshow::marker {
+  background-image: url('imagenes/fondo3.jpg');
+  animation-delay: 20s;
+}
+
 @keyframes fondoFade {
-  0%, 45%   { opacity: 0; }
-  50%, 95%  { opacity: 0.25; }
-  100%      { opacity: 0; }
+  0%, 30%   { opacity: 0; }
+  35%, 60%  { opacity: 0.4; }
+  65%, 100% { opacity: 0; }
 }
 
 input, button {
@@ -91,3 +99,4 @@ button {
   opacity: 0.85;
   z-index: 10;
 }
+
