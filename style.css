@@ -208,6 +208,7 @@ p {
 
   #pantalla3 {
     padding: 10px;
+    margin-bottom: 30px;
   }
   
   @media (max-width: 480px) {
@@ -262,11 +263,12 @@ p {
   padding: 20px;
   margin-top: 30px;
   border-radius: 15px;
-  max-width: 350px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
 }
+
 
 @media (max-width: 480px) {
   .foto-perfil {

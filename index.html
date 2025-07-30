@@ -46,22 +46,24 @@
 </div>
 
 <!-- RESULTADO / Pantalla 3 -->
-<div id="pantalla3" class="contenedor" style="display: none;">
+<div id="pantalla3">
   <h2 id="titulo"></h2>
   <p id="descripcion"></p>
-  <img id="imagen" src="" alt="Resultado">
+  <img id="imagen" src="" alt="Imagen del resultado">
+  <br>
   <button onclick="reiniciar()">Volver a empezar</button>
+</div>
 
-  <!-- Nuevo bloque de suscripción -->
-  <div class="bloque-suscripcion">
-    <div class="barra-suscripcion">
-      <img src="imagenes/perfil.jpg" alt="Foto de perfil" class="foto-perfil">
-      <a href="https://www.youtube.com/@PerroDeCaza?sub_confirmation=1" target="_blank" class="boton-suscribirse">
-        Suscríbete a PERRODECAZA
-      </a>
-    </div>
+<!-- 🔽 Esto va FUERA del div de pantalla3 🔽 -->
+<div class="bloque-suscripcion">
+  <div class="barra-suscripcion">
+    <img src="imagenes/perfil.jpg" alt="Foto de perfil" class="foto-perfil">
+    <a href="https://www.youtube.com/@PerroDeCaza?sub_confirmation=1" target="_blank" class="boton-suscribirse">
+      Suscríbete a PERRODECAZA
+    </a>
   </div>
 </div>
+
 
   
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
