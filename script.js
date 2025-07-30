@@ -220,7 +220,7 @@ function analizarColor() {
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
-    `${quitarTildes(elegido)}.jpg`
+    elegido
   );
 }
 
@@ -242,7 +242,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   // Asignar contenido
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
-  imagen.src = `imagenes/${quitarTildes(imagenArchivo)}`;
+  imagen.src = `imagenes/${quitarTildes(imagenArchivo).toLowerCase()}.jpg`;
 
   // Sonidos según el título del resultado
   if (tituloTexto === "Gaylandia") {
