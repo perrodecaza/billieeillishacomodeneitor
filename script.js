@@ -231,7 +231,9 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   const descripcion = document.getElementById('descripcion');
   const imagen = document.getElementById('imagen');
 
-  // Limpia la imagen anterior antes de mostrar algo nuevo
+  // Limpiar valores previos
+  titulo.textContent = '';
+  descripcion.textContent = '';
   imagen.src = '';
 
   // Mostrar pantalla final
@@ -239,25 +241,26 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   document.getElementById('pantalla2').style.display = 'none';
   pantalla3.style.display = 'block';
 
-  // Asignar contenido
-  if (imagenArchivo.endsWith('.jpg') || imagenArchivo.endsWith('.png')) {
-    imagen.src = `imagenes/${imagenArchivo}`;
-  } else {
-    imagen.src = `imagenes/${quitarTildes(imagenArchivo).toLowerCase()}.jpg`;
-  }
+  // Asignar contenido nuevo
+  titulo.textContent = tituloTexto;
+  descripcion.textContent = descripcionTexto;
+  imagen.src = `imagenes/${imagenArchivo}`;
 
-
-  // Sonidos según el título del resultado
+  // Sonido según resultado
   if (tituloTexto === "Gaylandia") {
+    sonidos.gay.currentTime = 0;
     sonidos.gay.play();
-    lanzarEfectoGay(); // si decides añadirlo
-  } else if (tituloTexto === "Reino de las Sombras") {
+  } else if (tituloTexto === "Alto ahí caballero" || tituloTexto === "Reino de las Sombras") {
+    sonidos.oscurosecreto.currentTime = 0;
     sonidos.oscurosecreto.play();
-    lanzarEfectoOscuro(); // si decides añadirlo
-  } else if (tituloTexto === "martian") {
+  } else if (tituloTexto.toLowerCase().includes("shrek") || tituloTexto.toLowerCase().includes("martian")) {
+    sonidos.martian.currentTime = 0;
     sonidos.martian.play();
-    lanzarEfectoMartian(); // si decides añadirlo
+  } else if (tituloTexto === "Color sospechoso") {
+    sonidos.alerta.currentTime = 0;
+    sonidos.alerta.play();
   } else if (confettiActivo) {
+    sonidos.confeti.currentTime = 0;
     sonidos.confeti.play();
     confetti({
       particleCount: 150,
@@ -266,6 +269,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
     });
   }
 }
+
 
 
 function reiniciar() {
