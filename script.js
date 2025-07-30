@@ -55,7 +55,7 @@ function esColorHumano(rgb, hex) {
   const intensidad = Math.max(rgb.r, rgb.g, rgb.b) - Math.min(rgb.r, rgb.g, rgb.b);
   const brillo = (rgb.r + rgb.g + rgb.b) / 3;
 
-  const esNatural = intensidad < 80 && brillo > 40 && brillo < 220;
+  const esNatural = intensidad < 130 && brillo > 30 && brillo < 245;
 
   return minDistancia < 100 && esNatural;
 }
@@ -119,26 +119,29 @@ function analizarColor() {
   const ojosTipo = ojos.value;
   const rgb = hexToRgb(hex);
 
-  // Colores broma tienen prioridad
-for (const broma of coloresBroma) {
-  if (broma.test(rgb)) {
-    // Reproducir sonido si tiene
-    if (broma.sonido && sonidos[broma.sonido]) {
-      sonidos[broma.sonido].currentTime = 0;
-      sonidos[broma.sonido].play();
+  // Primero revisamos si es color humano
+  const esHumano = esColorHumano(rgb, hex);
+
+  // Si NO es humano, revisamos si encaja en una broma
+  if (!esHumano) {
+    for (const broma of coloresBroma) {
+      if (broma.test(rgb)) {
+        const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
+        const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
+
+        if (broma.nombre.toLowerCase() === "martian") {
+          sonidos.martian.currentTime = 0;
+          sonidos.martian.play();
+        }
+
+        mostrarResultado(broma.nombre, titulo, imagen, false);
+        return;
+      }
     }
 
-    const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
-    const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
-    mostrarResultado(broma.nombre, titulo, imagen, false);
-    return;
-  }
-}
-
-  if (!esColorHumano(rgb, hex)) {
+    // Si no es humano ni broma
     sonidos.alerta.currentTime = 0;
     sonidos.alerta.play();
-
     mostrarResultado(
       "Color sospechoso",
       "Bro no mientas, si de verdad eres de ese color busca un médico.",
@@ -146,6 +149,22 @@ for (const broma of coloresBroma) {
       false
     );
     return;
+  }
+
+  // Ahora puede ser humano. Revisamos primero bromas humanas (como Martian si quieres)
+  for (const broma of coloresBroma) {
+    if (broma.test(rgb)) {
+      const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
+      const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
+
+      if (broma.nombre.toLowerCase() === "martian") {
+        sonidos.martian.currentTime = 0;
+        sonidos.martian.play();
+      }
+
+      mostrarResultado(broma.nombre, titulo, imagen, false);
+      return;
+    }
   }
 
   // Determinar tono específico
@@ -167,43 +186,44 @@ for (const broma of coloresBroma) {
   }
 
   // Easter egg especial solo para "oscuro"
-if (tonoCercano.tono === "oscuro" && Math.random() < 0.25) {
-  sonidos.oscurosecreto.currentTime = 0;
-  sonidos.oscurosecreto.play();
-
-  mostrarResultado(
-    "Alto ahí caballero",
-    "Esto es un chequeo de rutina, por favor entregue su ID para comprobar que todo está en orden e intente de nuevo.",
-    "sombras.jpg",
-    false
-  );
-  return;
-}
-
-  // Easter egg global
-  if (Math.random() < 0.25) {
+  if (tonoCercano.tono === "oscuro" && Math.random() < 0.25) {
+    sonidos.oscurosecreto.currentTime = 0;
+    sonidos.oscurosecreto.play();
     mostrarResultado(
-      "Gaylandia",
-      "ERES GAY! FELICIDADES EN 2025 PUEDES SER GAY SIN PROBLEMAS.",
-      "gaylandia.jpg",
-      true,
-      sonidos.gay
+      "Alto ahí caballero",
+      "Detenga el auto y entrege el ID. Esto es un chequeo de rutina, intente de nuevo.",
+      "sombras.jpg",
+      false
     );
     return;
   }
 
-  // País normal
+  // Easter egg global
+  if (Math.random() < 0.25) {
+    sonidos.gay.currentTime = 0;
+    sonidos.gay.play();
+    mostrarResultado(
+      "Gaylandia",
+      "ERES GAY! FELICIDADES EN 2025 PUEDES SER GAY SIN PROBLEMAS.",
+      "gaylandia.jpg"
+    );
+    return;
+  }
+
+  // Resultado normal
   const posibles = paises[tonoCercano.tono][ojosTipo];
   const elegido = posibles[Math.floor(Math.random() * posibles.length)];
+
+  sonidos.confeti.currentTime = 0;
+  sonidos.confeti.play();
 
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
-    `${quitarTildes(elegido.toLowerCase())}.jpg`,
-    true,
-    sonidos.confeti
+    `${elegido.toLowerCase().replace(/ /g, "_")}.jpg`
   );
 }
+
 
 function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true) {
   const pantalla3 = document.getElementById('pantalla3');
