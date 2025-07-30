@@ -269,6 +269,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
       origin: { y: 0.6 }
     });
   }
+  document.getElementById("bloqueSuscripcion").style.display = "block";
 }
 
 
@@ -288,6 +289,7 @@ function reiniciar() {
     sonido.pause();
     sonido.currentTime = 0;
   }
+  document.getElementById("bloqueSuscripcion").style.display = "none";
 }
 
 
