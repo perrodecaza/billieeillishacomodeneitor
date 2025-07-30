@@ -1,3 +1,18 @@
+const sonidos = {
+  confeti: new Audio('sonidos/sonido_confeti.mp3'),
+  alerta: new Audio('sonidos/sonido_alerta.mp3'),
+  gay: new Audio('sonidos/sonido_gay.mp3'),
+  martian: new Audio('sonidos/sonido_martian.mp3'),
+  oscurosecreto: new Audio('sonidos/sonido_oscurosecreto.mp3')
+};
+
+// Volúmenes individuales
+sonidos.confeti.volume = 1;         // Suave, alegre
+sonidos.alerta.volume = 0.5;          // Un poco más bajo para no asustar
+sonidos.gay.volume = 0.5;            // Ligeramente más fuerte, efecto divertido
+sonidos.martian.volume = 0.30;        // Medio
+sonidos.oscurosecreto.volume = 1;   // Misterioso, equilibrado
+
 function irAPantalla2() {
   const hex = document.getElementById('hexInput').value.trim().toLowerCase();
   if (!/^#?[0-9a-f]{3,6}$/i.test(hex)) {
@@ -30,16 +45,17 @@ function colorDistance(c1, c2) {
   );
 }
 
-function esColorHumano(rgb) {
+function esColorHumano(rgb, hex) {
+  const hexLower = hex.toLowerCase();
+  if (hexLower === "ffffff" || hexLower === "#ffffff") return true;
+  if (hexLower === "000000" || hexLower === "#000000") return true;
+
   const minDistancia = Math.min(...tonosPiel.map(t => colorDistance(rgb, t.rgb)));
 
-  // Rechazar si es un color demasiado saturado o brillante
   const intensidad = Math.max(rgb.r, rgb.g, rgb.b) - Math.min(rgb.r, rgb.g, rgb.b);
   const brillo = (rgb.r + rgb.g + rgb.b) / 3;
 
-  const esNatural =
-    intensidad < 80 &&          // no mucho contraste entre r, g y b
-    brillo > 40 && brillo < 220; // no muy oscuro ni muy brillante
+  const esNatural = intensidad < 80 && brillo > 40 && brillo < 220;
 
   return minDistancia < 100 && esNatural;
 }
@@ -77,7 +93,8 @@ const coloresBroma = [
     nombre: "martian",
     test: ({ r, g, b }) => g > 120 && r < 100,
     mensaje: "Ah perro, eres Martian Manhunter.",
-    imagen: "martianmanhunter.jpg"
+    imagen: "martianmanhunter.jpg",
+    sonido: "martian"
   },
   { 
     nombre: "Pandora", 
@@ -102,59 +119,84 @@ function analizarColor() {
   const ojosTipo = ojos.value;
   const rgb = hexToRgb(hex);
 
-  // Prioridad: colores broma primero
+  // Colores broma tienen prioridad
   for (const broma of coloresBroma) {
     if (broma.test(rgb)) {
       const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
       const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
-      mostrarResultado(broma.nombre, titulo, imagen, false);
+      const sonido = broma.sonido ? sonidos[broma.sonido] : sonidos.alerta;
+      mostrarResultado(broma.nombre, titulo, imagen, false, sonido);
       return;
     }
   }
 
-  // Si no es color humano
-  if (!esColorHumano(rgb)) {
+  if (!esColorHumano(rgb, hex)) {
     mostrarResultado(
       "Color sospechoso",
       "Bro no mientas, si de verdad eres de ese color busca un médico.",
       "nohumano.jpg",
-      false
+      false,
+      sonidos.alerta
     );
     return;
   }
 
-  // Chance de salir Gaylandia
+  // Determinar tono específico
+  let tonoCercano;
+  if (hex === "ffffff") {
+    tonoCercano = tonosPiel.find(t => t.tono === "claro");
+  } else if (hex === "000000") {
+    tonoCercano = tonosPiel.find(t => t.tono === "oscuro");
+  } else {
+    tonoCercano = tonosPiel[0];
+    let menorDistancia = Infinity;
+    for (const t of tonosPiel) {
+      const dist = colorDistance(rgb, t.rgb);
+      if (dist < menorDistancia) {
+        menorDistancia = dist;
+        tonoCercano = t;
+      }
+    }
+  }
+
+  // Easter egg especial solo para "oscuro"
+  if (tonoCercano.tono === "oscuro" && Math.random() < 0.25) {
+    mostrarResultado(
+      "La Policía te Detuvo para un Chequeo de Rutina",
+      "Entrega el ID caballero para comprobar que todo está correcto e intente de nuevo.",
+      "sombras.jpg",
+      false,
+      sonidos.oscurosecreto
+    );
+    return;
+  }
+
+  // Easter egg global
   if (Math.random() < 0.25) {
     mostrarResultado(
       "Gaylandia",
       "ERES GAY! FELICIDADES EN 2025 PUEDES SER GAY SIN PROBLEMAS.",
-      "gaylandia.jpg"
+      "gaylandia.jpg",
+      true,
+      sonidos.gay
     );
     return;
   }
 
-  // Determinar el tono más cercano
-  let tonoCercano = tonosPiel[0];
-  let menorDistancia = Infinity;
-  for (const t of tonosPiel) {
-    const dist = colorDistance(rgb, t.rgb);
-    if (dist < menorDistancia) {
-      menorDistancia = dist;
-      tonoCercano = t;
-    }
-  }
-
+  // País normal
   const posibles = paises[tonoCercano.tono][ojosTipo];
   const elegido = posibles[Math.floor(Math.random() * posibles.length)];
 
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
-    `${elegido.toLowerCase().replace(/ /g, "_")}.jpg`
+    `${elegido.toLowerCase().replace(/ /g, "_")}.jpg`,
+    true,
+    sonidos.confeti
   );
 }
 
-function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true) {
+function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true, sonido = null) {
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'none';
   document.getElementById('pantalla3').style.display = 'block';
@@ -174,6 +216,10 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
       origin: { y: 0.6 }
     });
   }
+
+  if (sonido) {
+    sonido.play();
+  }
 }
 
 function reiniciar() {
@@ -183,7 +229,3 @@ function reiniciar() {
   document.getElementById('pantalla3').style.display = 'none';
   document.getElementById('pantalla1').style.display = 'block';
 }
-
-
-
-
