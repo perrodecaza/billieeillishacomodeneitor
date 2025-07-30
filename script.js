@@ -270,6 +270,9 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
     });
   }
   document.getElementById("bloqueSuscripcion").style.display = "flex";
+  imagen.src = `imagenes/${imagenArchivo}`;
+  imagen.style.display = 'block';
+
 }
 
 
@@ -290,6 +293,7 @@ function reiniciar() {
     sonido.currentTime = 0;
   }
   document.getElementById("bloqueSuscripcion").style.display = "none";
+  document.getElementById('imagen').style.display = 'none';
 }
 
 

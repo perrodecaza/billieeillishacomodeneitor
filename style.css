@@ -139,12 +139,12 @@ button:hover {
   background-color: #555;
 }
 
-/* Créditos */
+/* Créditos 
 .creditos {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  width: 300px; /* 120px * 2.5 = 300px */
+  width: 300px; /* 120px * 2.5 = 300px 
   opacity: 0.85;
   z-index: 10;
 }
@@ -153,6 +153,8 @@ button:hover {
   height: auto;
   display: block;
 }
+*/
+
 
 /* Contenedor de la pantalla de resultado */
 #pantalla3 {
@@ -289,3 +291,9 @@ p {
     padding: 10px 16px;
   }
 }
+
+#imagen:empty,
+#imagen[src=""] {
+  display: none;
+}
+
