@@ -197,28 +197,36 @@ function analizarColor() {
 }
 
 function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true) {
-  document.getElementById('pantalla1').style.display = 'none';
-  document.getElementById('pantalla2').style.display = 'none';
-  document.getElementById('pantalla3').style.display = 'block';
-
+  const pantalla3 = document.getElementById('pantalla3');
   const titulo = document.getElementById('titulo');
   const descripcion = document.getElementById('descripcion');
   const imagen = document.getElementById('imagen');
 
+  // Limpia la imagen anterior antes de mostrar algo nuevo
+  imagen.src = '';
+
+  // Mostrar pantalla final
+  document.getElementById('pantalla1').style.display = 'none';
+  document.getElementById('pantalla2').style.display = 'none';
+  pantalla3.style.display = 'block';
+
+  // Asignar contenido
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
+  imagen.src = `imagenes/${imagenArchivo}`;
 
-  // Oculta la imagen mientras se carga la nueva
-  imagen.style.opacity = 0;
-
-  // Asigna la nueva ruta y muestra la imagen solo cuando esté cargada
-  const nuevaSrc = `imagenes/${quitarTildes(imagenArchivo.toLowerCase())}`;
-  imagen.onload = () => {
-    imagen.style.opacity = 1;
-  };
-  imagen.src = nuevaSrc;
-
-  if (confettiActivo) {
+  // Sonidos según el título del resultado
+  if (tituloTexto === "Gaylandia") {
+    sonidos.gay.play();
+    lanzarEfectoGay(); // si decides añadirlo
+  } else if (tituloTexto === "Reino de las Sombras") {
+    sonidos.oscurosecreto.play();
+    lanzarEfectoOscuro(); // si decides añadirlo
+  } else if (tituloTexto === "martian") {
+    sonidos.martian.play();
+    lanzarEfectoMartian(); // si decides añadirlo
+  } else if (confettiActivo) {
+    sonidos.confeti.play();
     confetti({
       particleCount: 150,
       spread: 70,
@@ -226,6 +234,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
     });
   }
 }
+
 
 function reiniciar() {
   // Limpiar campos de entrada
