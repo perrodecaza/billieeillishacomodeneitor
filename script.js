@@ -231,9 +231,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   const descripcion = document.getElementById('descripcion');
   const imagen = document.getElementById('imagen');
 
-  // Limpiar valores previos
-  titulo.textContent = '';
-  descripcion.textContent = '';
+  // Limpiar imagen anterior
   imagen.src = '';
 
   // Mostrar pantalla final
@@ -241,26 +239,26 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   document.getElementById('pantalla2').style.display = 'none';
   pantalla3.style.display = 'block';
 
-  // Asignar contenido nuevo
+  // Asignar contenido correctamente
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
-  imagen.src = `imagenes/${imagenArchivo}`;
 
-  // Sonido según resultado
+  const imagenNormalizada = quitarTildes(imagenArchivo.toLowerCase());
+  imagen.src = `imagenes/${imagenNormalizada}`;
+
+  // Reproducir sonido adecuado
   if (tituloTexto === "Gaylandia") {
-    sonidos.gay.currentTime = 0;
     sonidos.gay.play();
-  } else if (tituloTexto === "Alto ahí caballero" || tituloTexto === "Reino de las Sombras") {
-    sonidos.oscurosecreto.currentTime = 0;
+  } else if (tituloTexto === "Alto ahí caballero") {
     sonidos.oscurosecreto.play();
-  } else if (tituloTexto.toLowerCase().includes("shrek") || tituloTexto.toLowerCase().includes("martian")) {
-    sonidos.martian.currentTime = 0;
+  } else if (tituloTexto === "Tenemos al mismísimo Shrek") {
     sonidos.martian.play();
-  } else if (tituloTexto === "Color sospechoso") {
-    sonidos.alerta.currentTime = 0;
+  } else if (!confettiActivo) {
     sonidos.alerta.play();
-  } else if (confettiActivo) {
-    sonidos.confeti.currentTime = 0;
+  }
+
+  // Confeti si se desea
+  if (confettiActivo) {
     sonidos.confeti.play();
     confetti({
       particleCount: 150,
