@@ -160,16 +160,18 @@ function analizarColor() {
   }
 
   // Easter egg especial solo para "oscuro"
-  if (tonoCercano.tono === "oscuro" && Math.random() < 0.25) {
-    mostrarResultado(
-      "La Policía te Detuvo para un Chequeo de Rutina",
-      "Entrega el ID caballero para comprobar que todo está correcto e intente de nuevo.",
-      "sombras.jpg",
-      false,
-      sonidos.oscurosecreto
-    );
-    return;
-  }
+if (tonoCercano.tono === "oscuro" && Math.random() < 0.25) {
+  sonidos.oscurosecreto.currentTime = 0;
+  sonidos.oscurosecreto.play();
+
+  mostrarResultado(
+    "Alto ahí caballero",
+    "Esto es un chequeo de rutina, por favor entregue su ID para comprobar que todo está en orden e intente de nuevo.",
+    "sombras.jpg",
+    false
+  );
+  return;
+}
 
   // Easter egg global
   if (Math.random() < 0.25) {
@@ -237,24 +239,19 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
 
 
 function reiniciar() {
-  // Limpiar campos de entrada
   document.getElementById('hexInput').value = '';
   document.querySelectorAll('input[name="ojos"]').forEach(input => input.checked = false);
 
-  // Ocultar pantalla de resultado
-  const pantalla3 = document.getElementById('pantalla3');
-  pantalla3.style.display = 'none';
-
-  // Limpiar clases de efectos visuales si algún día se usan
-  pantalla3.classList.remove('martianFX', 'gayFX', 'oscuroFX');
-
-  // Limpiar imagen anterior
-  const imagen = document.getElementById('imagen');
-  imagen.src = '';
-  imagen.style.opacity = 0;
-
-  // Volver a mostrar la primera pantalla
+  document.getElementById('pantalla3').style.display = 'none';
   document.getElementById('pantalla1').style.display = 'block';
+
+  // Limpiar imagen y detener sonidos si se están reproduciendo
+  document.getElementById('imagen').src = '';
+
+  for (const sonido of Object.values(sonidos)) {
+    sonido.pause();
+    sonido.currentTime = 0;
+  }
 }
 
 
