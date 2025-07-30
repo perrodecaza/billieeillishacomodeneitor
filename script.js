@@ -10,7 +10,7 @@ const sonidos = {
 sonidos.confeti.volume = 1;         // Suave, alegre
 sonidos.alerta.volume = 0.5;          // Un poco más bajo para no asustar
 sonidos.gay.volume = 0.5;            // Ligeramente más fuerte, efecto divertido
-sonidos.martian.volume = 0.50;        // Medio
+sonidos.martian.volume = 0.3;        // Medio
 sonidos.oscurosecreto.volume = 1;   // Misterioso, equilibrado
 
 function irAPantalla2() {
