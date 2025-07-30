@@ -220,7 +220,7 @@ function analizarColor() {
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
-    elegido
+    `${quitarTildes(elegido)}.jpg`
   );
 }
 
@@ -231,35 +231,38 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   const descripcion = document.getElementById('descripcion');
   const imagen = document.getElementById('imagen');
 
-  // Limpiar imagen anterior
-  imagen.src = '';
-
   // Mostrar pantalla final
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'none';
   pantalla3.style.display = 'block';
 
-  // Asignar contenido correctamente
+  // Asignar texto
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
 
-  const imagenNormalizada = quitarTildes(imagenArchivo.toLowerCase());
-  imagen.src = `imagenes/${imagenNormalizada}`;
+  // Asignar imagen directamente sin quitar tildes
+  imagen.src = `imagenes/${imagenArchivo}`;
 
   // Reproducir sonido adecuado
   if (tituloTexto === "Gaylandia") {
+    sonidos.gay.currentTime = 0;
     sonidos.gay.play();
   } else if (tituloTexto === "Alto ahí caballero") {
+    sonidos.oscurosecreto.currentTime = 0;
     sonidos.oscurosecreto.play();
   } else if (tituloTexto === "Tenemos al mismísimo Shrek") {
+    sonidos.martian.currentTime = 0;
     sonidos.martian.play();
-  } else if (!confettiActivo) {
+  } else if (tituloTexto === "Color sospechoso") {
+    sonidos.alerta.currentTime = 0;
     sonidos.alerta.play();
+  } else if (confettiActivo) {
+    sonidos.confeti.currentTime = 0;
+    sonidos.confeti.play();
   }
 
-  // Confeti si se desea
+  // Lanzar confeti si aplica
   if (confettiActivo) {
-    sonidos.confeti.play();
     confetti({
       particleCount: 150,
       spread: 70,
@@ -267,6 +270,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
     });
   }
 }
+
 
 
 
@@ -288,5 +292,8 @@ function reiniciar() {
 
 
 function quitarTildes(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ñ/g, "n").replace(/ /g, "_");
+  return str.normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/ñ/g, "n")
+            .replace(/ /g, "_");
 }
