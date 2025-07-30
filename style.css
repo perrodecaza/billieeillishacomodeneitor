@@ -1,6 +1,6 @@
+/* Fondo base negro */
 body {
   margin: 0;
-  background-color: black;
   font-family: 'Bitcount Prop Single', sans-serif;
   display: flex;
   flex-direction: column;
@@ -9,9 +9,11 @@ body {
   min-height: 100vh;
   color: white;
   text-align: center;
+  background-color: black;
   overflow: hidden;
 }
 
+/* Contenedores de secciones */
 .contenedor {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 30px;
@@ -22,10 +24,82 @@ body {
   text-align: center;
 }
 
+/* Encabezados */
 h1, h2, h3 {
   text-align: center;
 }
 
+/* Slideshow general */
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Slides individuales */
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation-timing-function: ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Imagen 1: fade-in rápido inicial */
+.slide1 {
+  background-image: url('imagenes/fondo1.jpg');
+  animation: fade1 18s infinite;
+  animation-delay: 0s;
+  z-index: 1;
+}
+
+/* Imagen 2 */
+.slide2 {
+  background-image: url('imagenes/fondo2.jpg');
+  animation: fade2 18s infinite;
+  animation-delay: 6s;
+  z-index: 1;
+}
+
+/* Imagen 3 */
+.slide3 {
+  background-image: url('imagenes/fondo3.jpg');
+  animation: fade3 18s infinite;
+  animation-delay: 12s;
+  z-index: 1;
+}
+
+/* Keyframes de transiciones */
+@keyframes fade1 {
+  0% { opacity: 0.01; }
+  5% { opacity: 1; }
+  33.3% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes fade2 {
+  0%, 33.2% { opacity: 0; }
+  38% { opacity: 1; }
+  66.6% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes fade3 {
+  0%, 66.5% { opacity: 0; }
+  71% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Inputs y botones */
 input, button {
   padding: 10px;
   margin-top: 10px;
@@ -40,6 +114,7 @@ button {
   color: white;
 }
 
+/* Créditos */
 .creditos {
   position: fixed;
   bottom: 10px;
@@ -48,64 +123,3 @@ button {
   opacity: 0.85;
   z-index: 10;
 }
-
-/* Fondo tipo Slideshow con capas reales */
-.slideshow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
-
-.slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-}
-
-/* Imágenes de fondo */
-.slide1 {
-  background-image: url('imagenes/fondo1.jpg');
-  animation: fade1 45s infinite;
-}
-
-.slide2 {
-  background-image: url('imagenes/fondo2.jpg');
-  animation: fade2 45s infinite;
-}
-
-.slide3 {
-  background-image: url('imagenes/fondo3.jpg');
-  animation: fade3 45s infinite;
-}
-
-/* Animaciones separadas */
-@keyframes fade1 {
-  0%, 28% { opacity: 0; }
-  33%, 61% { opacity: 0.25; }
-  66%, 100% { opacity: 0; }
-}
-
-@keyframes fade2 {
-  0%, 61% { opacity: 0; }
-  66%, 94% { opacity: 0.25; }
-  100% { opacity: 0; }
-}
-
-@keyframes fade3 {
-  0%, 94% { opacity: 0; }
-  95%, 100% { opacity: 0.25; }
-}
-
-
-
-
-
