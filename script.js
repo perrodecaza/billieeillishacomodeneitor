@@ -10,7 +10,7 @@ const sonidos = {
 sonidos.confeti.volume = 1;         // Suave, alegre
 sonidos.alerta.volume = 0.5;          // Un poco más bajo para no asustar
 sonidos.gay.volume = 0.5;            // Ligeramente más fuerte, efecto divertido
-sonidos.martian.volume = 0.30;        // Medio
+sonidos.martian.volume = 0.50;        // Medio
 sonidos.oscurosecreto.volume = 1;   // Misterioso, equilibrado
 
 function irAPantalla2() {
@@ -120,15 +120,20 @@ function analizarColor() {
   const rgb = hexToRgb(hex);
 
   // Colores broma tienen prioridad
-  for (const broma of coloresBroma) {
-    if (broma.test(rgb)) {
-      const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
-      const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
-      const sonido = broma.sonido ? sonidos[broma.sonido] : sonidos.alerta;
-      mostrarResultado(broma.nombre, titulo, imagen, false, sonido);
-      return;
+for (const broma of coloresBroma) {
+  if (broma.test(rgb)) {
+    // Reproducir sonido si tiene
+    if (broma.sonido && sonidos[broma.sonido]) {
+      sonidos[broma.sonido].currentTime = 0;
+      sonidos[broma.sonido].play();
     }
+
+    const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
+    const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
+    mostrarResultado(broma.nombre, titulo, imagen, false);
+    return;
   }
+}
 
   if (!esColorHumano(rgb, hex)) {
     mostrarResultado(
