@@ -30,6 +30,11 @@ function colorDistance(c1, c2) {
   );
 }
 
+function esColorHumano(rgb) {
+  const distancias = tonosPiel.map(t => colorDistance(rgb, t.rgb));
+  return Math.min(...distancias) < 150;
+}
+
 const tonosPiel = [
   { tono: "claro", rgb: { r: 240, g: 215, b: 190 } },
   { tono: "medio", rgb: { r: 198, g: 134, b: 66 } },
@@ -71,15 +76,6 @@ const coloresBroma = [
   }
 ];
 
-if (!esColorHumano(rgb, hex)) {
-  mostrarResultado(
-    "Color sospechoso",
-    "Bro no mientas, si de verdad eres de ese color busca un médico.",
-    "nohumano.jpg",
-    false
-  );
-  return;
-}
 function analizarColor() {
   const hexRaw = document.getElementById('hexInput').value.trim().toLowerCase();
   const ojos = document.querySelector('input[name="ojos"]:checked');
@@ -97,29 +93,38 @@ function analizarColor() {
   const ojosTipo = ojos.value;
   const rgb = hexToRgb(hex);
 
-  if (!esColorHumano(rgb, hex)) {
+  // Prioridad: colores broma primero
+  for (const broma of coloresBroma) {
+    if (broma.test(rgb)) {
+      const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
+      const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
+      mostrarResultado(broma.nombre, titulo, imagen, false);
+      return;
+    }
+  }
+
+  // Si no es color humano
+  if (!esColorHumano(rgb)) {
     mostrarResultado(
       "Color sospechoso",
       "Bro no mientas, si de verdad eres de ese color busca un médico.",
-      "nohumano.jpg"
+      "nohumano.jpg",
+      false
     );
     return;
   }
 
+  // Chance de salir Gaylandia
   if (Math.random() < 0.25) {
-    mostrarResultado("Gaylandia", "ERES GAY! FELICIDADES EN 2025 PUEDES SER GAY SIN PROBLEMAS.", "gaylandia.jpg");
+    mostrarResultado(
+      "Gaylandia",
+      "ERES GAY! FELICIDADES EN 2025 PUEDES SER GAY SIN PROBLEMAS.",
+      "gaylandia.jpg"
+    );
     return;
   }
 
-for (const broma of coloresBroma) {
-  if (broma.test(rgb)) {
-    const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
-    const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
-    mostrarResultado(broma.nombre, titulo, imagen, false);
-    return;
-  }
-}
-
+  // Determinar el tono más cercano
   let tonoCercano = tonosPiel[0];
   let menorDistancia = Infinity;
   for (const t of tonosPiel) {
@@ -169,6 +174,7 @@ function reiniciar() {
   document.getElementById('pantalla3').style.display = 'none';
   document.getElementById('pantalla1').style.display = 'block';
 }
+
 
 
 
