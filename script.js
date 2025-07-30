@@ -55,19 +55,31 @@ const paises = {
 };
 
 const coloresBroma = [
-  { nombre: "Springfield", test: ({ r, g, b }) => r > 200 && g > 200 && b < 100 },
-  { nombre: "Ma'aleca'andra", test: ({ r, g, b }) => g > 120 && r < 100 },
-  { nombre: "Pandora", test: ({ r, g, b }) => b > 160 && r < 100 }
+  { 
+    nombre: "Springfield", 
+    test: ({ r, g, b }) => r > 200 && g > 200 && b < 100 
+  },
+  { 
+    nombre: "martian",
+    test: ({ r, g, b }) => g > 120 && r < 100,
+    mensaje: "Ah perro, eres Martian Manhunter.",
+    imagen: "martianmanhunter.jpg"
+  },
+  { 
+    nombre: "Pandora", 
+    test: ({ r, g, b }) => b > 160 && r < 100 
+  }
 ];
 
-function esColorHumano(rgb, hex) {
-  if (hex === "000000" || hex === "ffffff") return true;
-  const distanciaMinima = Math.min(
-    ...tonosPiel.map(t => colorDistance(rgb, t.rgb))
+if (!esColorHumano(rgb, hex)) {
+  mostrarResultado(
+    "Color sospechoso",
+    "Bro no mientas, si de verdad eres de ese color busca un médico.",
+    "nohumano.jpg",
+    false
   );
-  return distanciaMinima < 100; // umbral de similitud
+  return;
 }
-
 function analizarColor() {
   const hexRaw = document.getElementById('hexInput').value.trim().toLowerCase();
   const ojos = document.querySelector('input[name="ojos"]:checked');
@@ -95,16 +107,18 @@ function analizarColor() {
   }
 
   if (Math.random() < 0.25) {
-    mostrarResultado("Gaylandia", "Un lugar mágico donde todo es posible.", "gaylandia.jpg");
+    mostrarResultado("Gaylandia", "ERES GAY! FELICIDADES EN 2025 PUEDES SER GAY SIN PROBLEMAS.", "gaylandia.jpg");
     return;
   }
 
-  for (const broma of coloresBroma) {
-    if (broma.test(rgb)) {
-      mostrarResultado(broma.nombre, `Bro tu gente se encuentra en ${broma.nombre}.`, `${broma.nombre.toLowerCase()}.jpg`);
-      return;
-    }
+for (const broma of coloresBroma) {
+  if (broma.test(rgb)) {
+    const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
+    const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
+    mostrarResultado(broma.nombre, titulo, imagen, false);
+    return;
   }
+}
 
   let tonoCercano = tonosPiel[0];
   let menorDistancia = Infinity;
@@ -126,7 +140,7 @@ function analizarColor() {
   );
 }
 
-function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
+function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true) {
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'none';
   document.getElementById('pantalla3').style.display = 'block';
@@ -139,11 +153,13 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
   descripcion.textContent = descripcionTexto;
   imagen.src = `imagenes/${imagenArchivo}`;
 
-  confetti({
-    particleCount: 150,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
+  if (confettiActivo) {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }
 }
 
 function reiniciar() {
