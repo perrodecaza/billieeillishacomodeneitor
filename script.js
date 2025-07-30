@@ -92,7 +92,12 @@ const paises = {
 const coloresBroma = [
   { 
     nombre: "Springfield", 
-    test: ({ r, g, b }) => r > 200 && g > 200 && b < 100 
+    test: ({ r, g, b }) =>
+    r > 200 &&
+    g > 180 &&
+    b < 80 &&
+    Math.abs(r - g) < 90 &&
+    r - b > 150
   },
   { 
     nombre: "Tenemos al mismísimo Shrek",
