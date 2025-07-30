@@ -190,7 +190,7 @@ function analizarColor() {
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
-    `${elegido.toLowerCase().replace(/ /g, "_")}.jpg`,
+    `${quitarTildes(elegido.toLowerCase())}.jpg`,
     true,
     sonidos.confeti
   );
@@ -207,7 +207,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
 
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
-  imagen.src = `imagenes/${imagenArchivo}`;
+  imagen.src = `imagenes/${quitarTildes(imagenArchivo.toLowerCase())}`;
 
   if (confettiActivo) {
     confetti({
@@ -228,4 +228,8 @@ function reiniciar() {
 
   document.getElementById('pantalla3').style.display = 'none';
   document.getElementById('pantalla1').style.display = 'block';
+}
+
+function quitarTildes(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ñ/g, "n").replace(/ /g, "_");
 }
