@@ -143,13 +143,18 @@ function analizarColor() {
       if (broma.test(rgb)) {
         const titulo = broma.mensaje || `Bro tu gente se encuentra en ${broma.nombre}.`;
         const imagen = broma.imagen || `${broma.nombre.toLowerCase()}.jpg`;
+        const nombreLower = broma.nombre.toLowerCase();
 
-        if (broma.nombre.toLowerCase() === "martian") {
+        if (nombreLower === "martian" || nombreLower.includes("shrek")) {
           sonidos.martian.currentTime = 0;
           sonidos.martian.play();
+          mostrarResultado(broma.nombre, titulo, imagen, false); // sin confeti
+        } else {
+          sonidos.confeti.currentTime = 0;
+          sonidos.confeti.play();
+          mostrarResultado(broma.nombre, titulo, imagen, true); // con confeti
         }
 
-        mostrarResultado(broma.nombre, titulo, imagen, false);
         return;
       }
     }
@@ -165,6 +170,7 @@ function analizarColor() {
     );
     return;
   }
+
 
   // Ahora puede ser humano. Revisamos primero bromas humanas (como Martian si quieres)
   for (const broma of coloresBroma) {
