@@ -25,25 +25,24 @@
   </div>
 
   <!-- PANTALLA 2: Tipo de ojos -->
-  <div class="contenedor" id="pantalla2" style="display:none;">
-    <h3>¿Cómo son tus ojos?</h3>
-    <div id="ojos">
-      <label>
-        <input type="radio" name="ojos" value="claros"> 
-        <img src="imagenes/ojos-claros.jpg" alt="Ojos claros" width="80">
-      </label>
-      <label>
-        <input type="radio" name="ojos" value="oscuros">
-        <img src="imagenes/ojos-oscuros.jpg" alt="Ojos oscuros" width="80">
-      </label>
-      <label>
-        <input type="radio" name="ojos" value="asiaticos">
-        <img src="imagenes/ojos-asiaticos.jpg" alt="Ojos asiáticos" width="80">
-      </label>
-    </div>
+<div class="contenedor" id="pantalla2" style="display:none;">
+  <h3>¿Cómo son tus ojos?</h3>
+  <div id="ojos">
+    <label>
+      <input type="radio" name="ojos" value="claros"> Ojos claros
+    </label>
     <br>
-    <button onclick="analizarColor()">Enviar</button>
+    <label>
+      <input type="radio" name="ojos" value="oscuros"> Ojos oscuros
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="ojos" value="asiaticos"> Ojos asiáticos
+    </label>
   </div>
+  <br>
+  <button onclick="analizarColor()">Enviar</button>
+</div>
 
 <!-- RESULTADO / Pantalla 3 -->
 <div class="contenedor" id="pantalla3" style="display:none;">

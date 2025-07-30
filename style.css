@@ -1,4 +1,8 @@
 /* Fondo base negro */
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Bitcount Prop Single', sans-serif;
@@ -10,7 +14,8 @@ body {
   color: white;
   text-align: center;
   background-color: black;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Contenedores de secciones */
@@ -19,9 +24,11 @@ body {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  margin: 30px auto;
+  margin: 10vh auto; /* antes: 30px auto */
   max-width: 600px;
   text-align: center;
+  box-sizing: border-box;
+  width: 90%; /* mejor para pantallas pequeñas */
 }
 
 /* Encabezados */
