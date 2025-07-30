@@ -226,6 +226,13 @@ p {
   gap: 15px;
 }
 
+.barra-suscripcion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
 .foto-perfil {
   width: 50px;
   height: 50px;
@@ -236,19 +243,30 @@ p {
 
 .boton-suscribirse {
   padding: 10px 18px;
-  font-size: 1em;
+  font-size: 0.9em;
   background-color: red;
   color: white;
   text-decoration: none;
   border-radius: 6px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .boton-suscribirse:hover {
   background-color: darkred;
 }
 
+.bloque-suscripcion {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 15px;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
 
 @media (max-width: 480px) {
   .foto-perfil {
