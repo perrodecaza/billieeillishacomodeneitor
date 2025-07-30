@@ -220,7 +220,7 @@ function analizarColor() {
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
-    `${quitarTildes(elegido)}.jpg`
+    `${quitarTildes(elegido).toLowerCase()}.jpg`
   );
 }
 
