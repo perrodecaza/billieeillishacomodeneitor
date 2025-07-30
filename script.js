@@ -1,4 +1,4 @@
-""function irAPantalla2() {
+function irAPantalla2() {
   const hex = document.getElementById('hexInput').value.trim().toLowerCase();
   if (!/^#?[0-9a-f]{3,6}$/i.test(hex)) {
     alert("Introduce un código HEX válido.");
