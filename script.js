@@ -16,7 +16,7 @@ sonidos.oscurosecreto.volume = 1;   // Misterioso, equilibrado
 function irAPantalla2() {
   const hex = document.getElementById('hexInput').value.trim().toLowerCase();
   if (!/^#?[0-9a-f]{3,6}$/i.test(hex)) {
-    alert("Introduce un código HEX válido.");
+    alert("Vamos tu puedes, introduce un código HEX válido.");
     return;
   }
 
@@ -122,7 +122,7 @@ function analizarColor() {
   const ojos = document.querySelector('input[name="ojos"]:checked');
 
   if (!/^#?[0-9a-f]{3,6}$/i.test(hexRaw)) {
-    alert("Introduce un código HEX válido.");
+    alert("Vamos tu puedes, introduce un código HEX válido.");
     return;
   }
   if (!ojos) {
@@ -240,7 +240,7 @@ function analizarColor() {
 
   mostrarResultado(
     elegido,
-    `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
+    `Si quieres estar rodeado con tu gente debes ir a ${elegido}.`,
     `${quitarTildes(elegido).toLowerCase()}.jpg`
   );
 }
