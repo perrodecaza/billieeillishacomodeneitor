@@ -29,7 +29,7 @@ h1, h2, h3 {
   text-align: center;
 }
 
-/* Slideshow general */
+/* Slideshow */
 .slideshow {
   position: fixed;
   top: 0;
@@ -40,7 +40,7 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* Slides individuales */
+/* Slides */
 .slide {
   position: absolute;
   top: 0; left: 0;
@@ -54,7 +54,6 @@ h1, h2, h3 {
   transition: opacity 1s ease-in-out;
 }
 
-/* Imagen 1: fade-in rápido inicial */
 .slide1 {
   background-image: url('imagenes/fondo1.jpg');
   animation: fade1 18s infinite;
@@ -62,41 +61,41 @@ h1, h2, h3 {
   z-index: 1;
 }
 
-/* Imagen 2 */
 .slide2 {
   background-image: url('imagenes/fondo2.jpg');
   animation: fade2 18s infinite;
-  animation-delay: 6s;
+  animation-delay: 0s;
   z-index: 1;
 }
 
-/* Imagen 3 */
 .slide3 {
   background-image: url('imagenes/fondo3.jpg');
   animation: fade3 18s infinite;
-  animation-delay: 12s;
+  animation-delay: 0s;
   z-index: 1;
 }
 
-/* Keyframes de transiciones */
+/* Animaciones ajustadas para que no haya pantalla negra */
 @keyframes fade1 {
-  0% { opacity: 0.01; }
-  5% { opacity: 1; }
-  33.3% { opacity: 0; }
+  0%   { opacity: 1; }
+  28%  { opacity: 1; }
+  33%  { opacity: 0; }
   100% { opacity: 0; }
 }
 
 @keyframes fade2 {
-  0%, 33.2% { opacity: 0; }
-  38% { opacity: 1; }
-  66.6% { opacity: 0; }
-  100% { opacity: 0; }
+  0%, 28%  { opacity: 0; }
+  33%      { opacity: 1; }
+  61%      { opacity: 1; }
+  66%      { opacity: 0; }
+  100%     { opacity: 0; }
 }
 
 @keyframes fade3 {
-  0%, 66.5% { opacity: 0; }
-  71% { opacity: 1; }
-  100% { opacity: 0; }
+  0%, 61%  { opacity: 0; }
+  66%      { opacity: 1; }
+  95%      { opacity: 1; }
+  100%     { opacity: 0; }
 }
 
 /* Inputs y botones */
@@ -123,3 +122,4 @@ button {
   opacity: 0.85;
   z-index: 10;
 }
+
