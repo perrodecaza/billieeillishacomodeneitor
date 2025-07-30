@@ -27,18 +27,18 @@ body {
   background-color: black;
 }
 
-/* Contenedores de secciones */
 .contenedor {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  margin: 10vh auto;
+  margin: 0 auto; /* <- CAMBIO: de 10vh auto a 0 auto */
   max-width: 600px;
   text-align: center;
   box-sizing: border-box;
   width: 90%;
 }
+
 
 /* Encabezados */
 h1, h2, h3 {
@@ -160,7 +160,7 @@ button:hover {
   width: 600px;
   margin: 0 auto;
   text-align: center;
-  padding: 20px;
+  padding: 10px; /* <- era 20px */
   box-sizing: border-box;
 }
 
