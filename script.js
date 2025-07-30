@@ -55,9 +55,9 @@ function esColorHumano(rgb, hex) {
   const intensidad = Math.max(rgb.r, rgb.g, rgb.b) - Math.min(rgb.r, rgb.g, rgb.b);
   const brillo = (rgb.r + rgb.g + rgb.b) / 3;
 
-  const esNatural = intensidad < 130 && brillo > 30 && brillo < 245;
+  const esNatural = intensidad < 140 && brillo > 20 && brillo < 250;
 
-  return minDistancia < 100 && esNatural;
+  return minDistancia < 120 && esNatural;
 }
 
 const tonosPiel = [
