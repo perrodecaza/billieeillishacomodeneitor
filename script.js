@@ -96,7 +96,12 @@ const coloresBroma = [
   },
   { 
     nombre: "Tenemos al mismísimo Shrek",
-    test: ({ r, g, b }) => g > 120 && r < 140 && b < 100,
+    test: ({ r, g, b }) =>
+      g > 100 &&
+      g > r + 20 &&
+      g > b + 20 &&
+      r < 120 &&
+      b < 90,
     mensaje: "Ah perro, eres Shrek.",
     imagen: "martianmanhunter.jpg",
     sonido: "martian"
