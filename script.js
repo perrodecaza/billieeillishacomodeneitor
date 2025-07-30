@@ -31,8 +31,17 @@ function colorDistance(c1, c2) {
 }
 
 function esColorHumano(rgb) {
-  const distancias = tonosPiel.map(t => colorDistance(rgb, t.rgb));
-  return Math.min(...distancias) < 150;
+  const minDistancia = Math.min(...tonosPiel.map(t => colorDistance(rgb, t.rgb)));
+
+  // Rechazar si es un color demasiado saturado o brillante
+  const intensidad = Math.max(rgb.r, rgb.g, rgb.b) - Math.min(rgb.r, rgb.g, rgb.b);
+  const brillo = (rgb.r + rgb.g + rgb.b) / 3;
+
+  const esNatural =
+    intensidad < 80 &&          // no mucho contraste entre r, g y b
+    brillo > 40 && brillo < 220; // no muy oscuro ni muy brillante
+
+  return minDistancia < 100 && esNatural;
 }
 
 const tonosPiel = [

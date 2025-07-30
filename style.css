@@ -1,3 +1,11 @@
+/* Viewport fijo y sin zoom en iOS */
+input, button, select, textarea {
+  font-size: 16px !important;
+}
+input:focus {
+  outline: none;
+}
+
 /* Fondo base negro */
 html {
   height: 100%;
@@ -10,13 +18,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
   color: white;
   text-align: center;
   background-color: black;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: relative;
 }
 
 /* Contenedores de secciones */
@@ -25,16 +33,18 @@ body {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  margin: 10vh auto; /* antes: 30px auto */
+  margin: 10vh auto;
   max-width: 600px;
   text-align: center;
   box-sizing: border-box;
-  width: 90%; /* mejor para pantallas pequeñas */
+  width: 90%;
 }
 
 /* Encabezados */
 h1, h2, h3 {
   text-align: center;
+  font-size: 2em;
+  margin-bottom: 10px;
 }
 
 /* Slideshow */
@@ -61,28 +71,24 @@ h1, h2, h3 {
   animation-timing-function: ease-in-out;
 }
 
-/* Fondo 1 */
 .slide:nth-child(1) {
   background-image: url('imagenes/fondo1.jpg');
   animation-name: fade1;
   animation-delay: 0s;
 }
 
-/* Fondo 2 */
 .slide:nth-child(2) {
   background-image: url('imagenes/fondo2.jpg');
   animation-name: fade2;
   animation-delay: 6s;
 }
 
-/* Fondo 3 */
 .slide:nth-child(3) {
   background-image: url('imagenes/fondo3.jpg');
   animation-name: fade3;
   animation-delay: 12s;
 }
 
-/* Animaciones */
 @keyframes fade1 {
   0%   { opacity: 0; }
   10%  { opacity: 1; }
@@ -107,20 +113,30 @@ h1, h2, h3 {
   100% { opacity: 0; }
 }
 
-
-/* Inputs y botones */
-input, button {
+/* Input HEX */
+#hexInput {
   padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
+  font-size: 1.2em;
+  width: 80%;
+  max-width: 300px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
 }
 
+/* Botones */
 button {
-  cursor: pointer;
-  background-color: #007bff;
+  padding: 12px 24px;
+  font-size: 1.1em;
+  border: none;
+  background-color: #333;
   color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #555;
 }
 
 /* Créditos */
@@ -155,62 +171,7 @@ button {
   border-radius: 12px;
 }
 
-/* Para pantallas pequeñas (móviles) */
-@media (max-width: 480px) {
-  #pantalla3 {
-    padding: 10px;
-  }
-
-  #imagen {
-    max-height: 200px;
-  }
-
-  h2#titulo {
-    font-size: 1.4em;
-  }
-
-  p#descripcion {
-    font-size: 1em;
-  }
-
-  button {
-    font-size: 1em;
-    padding: 8px 16px;
-  }
-}
-/* Input HEX */
-#hexInput {
-  padding: 10px;
-  font-size: 1.2em;
-  width: 80%;
-  max-width: 300px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  text-align: center;
-}
-
-/* Botones */
-button {
-  padding: 12px 24px;
-  font-size: 1.1em;
-  border: none;
-  background-color: #333;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #555;
-}
-
-/* Títulos y párrafos */
-h1, h2, h3 {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
+/* Texto */
 p {
   font-size: 1.2em;
   line-height: 1.5em;
@@ -231,8 +192,16 @@ p {
     padding: 8px;
   }
 
+  #imagen {
+    max-height: 200px;
+  }
+
   button {
     font-size: 1em;
     padding: 10px 20px;
+  }
+
+  #pantalla3 {
+    padding: 10px;
   }
 }
