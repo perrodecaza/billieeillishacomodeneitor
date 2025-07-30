@@ -50,6 +50,10 @@ function esColorHumano(rgb, hex) {
   if (hexLower === "ffffff" || hexLower === "#ffffff") return true;
   if (hexLower === "000000" || hexLower === "#000000") return true;
 
+  // Detectar verdes evidentes
+  const verdeDominante = rgb.g > rgb.r + 20 && rgb.g > rgb.b + 20;
+  if (verdeDominante) return false;
+
   const minDistancia = Math.min(...tonosPiel.map(t => colorDistance(rgb, t.rgb)));
 
   const intensidad = Math.max(rgb.r, rgb.g, rgb.b) - Math.min(rgb.r, rgb.g, rgb.b);
@@ -57,8 +61,9 @@ function esColorHumano(rgb, hex) {
 
   const esNatural = intensidad < 140 && brillo > 20 && brillo < 250;
 
-  return minDistancia < 120 && esNatural;
+  return minDistancia < 125 && esNatural;
 }
+
 
 const tonosPiel = [
   { tono: "claro", rgb: { r: 240, g: 215, b: 190 } },
