@@ -1,14 +1,14 @@
-function irAPantalla2() {
+""function irAPantalla2() {
   const hex = document.getElementById('hexInput').value.trim().toLowerCase();
   if (!/^#?[0-9a-f]{3,6}$/i.test(hex)) {
     alert("Introduce un código HEX válido.");
     return;
   }
 
-  // Mostrar pantalla 2
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'block';
 }
+
 function hexToRgb(hex) {
   hex = hex.replace("#", "");
   if (hex.length === 3) {
@@ -30,44 +30,49 @@ function colorDistance(c1, c2) {
   );
 }
 
-// Tonos aproximados de piel humanos
 const tonosPiel = [
   { tono: "claro", rgb: { r: 240, g: 215, b: 190 } },
   { tono: "medio", rgb: { r: 198, g: 134, b: 66 } },
   { tono: "oscuro", rgb: { r: 110, g: 60, b: 40 } }
 ];
 
-// Países por tono y tipo de ojos
 const paises = {
   claro: {
-    claros: ["Noruega", "Suecia", "Polonia"],
-    oscuros: ["Italia", "España", "Argentina"],
-    asiaticos: ["Kazajistán", "Uzbekistán"]
+    claros: ["Suecia", "Noruega", "Finlandia", "Rusia"],
+    oscuros: ["España", "Italia", "Argentina", "Chile", "USA"],
+    asiaticos: ["Japón", "Corea del Sur", "China"]
   },
   medio: {
-    claros: ["Portugal", "Turquía"],
-    oscuros: ["Brasil", "México", "India"],
-    asiaticos: ["China", "Vietnam", "Corea del Sur"]
+    claros: ["Portugal", "Turquía", "Uzbekistán"],
+    oscuros: ["México", "Colombia", "Perú", "Brasil", "India", "USA"],
+    asiaticos: ["Vietnam", "Tailandia", "Filipinas", "Malasia"]
   },
   oscuro: {
     claros: ["Sudáfrica"],
-    oscuros: ["Nigeria", "Etiopía", "Angola"],
-    asiaticos: ["Filipinas", "Indonesia"]
+    oscuros: ["Nigeria", "Angola", "Etiopía", "Camerún", "Kenia"],
+    asiaticos: ["Papúa Nueva Guinea", "Indonesia"]
   }
 };
 
-// Colores de broma
 const coloresBroma = [
   { nombre: "Springfield", test: ({ r, g, b }) => r > 200 && g > 200 && b < 100 },
   { nombre: "Ma'aleca'andra", test: ({ r, g, b }) => g > 120 && r < 100 },
   { nombre: "Pandora", test: ({ r, g, b }) => b > 160 && r < 100 }
 ];
 
+function esColorHumano(rgb, hex) {
+  if (hex === "000000" || hex === "ffffff") return true;
+  const distanciaMinima = Math.min(
+    ...tonosPiel.map(t => colorDistance(rgb, t.rgb))
+  );
+  return distanciaMinima < 100; // umbral de similitud
+}
+
 function analizarColor() {
-  const hex = document.getElementById('hexInput').value.trim().toLowerCase();
+  const hexRaw = document.getElementById('hexInput').value.trim().toLowerCase();
   const ojos = document.querySelector('input[name="ojos"]:checked');
 
-  if (!/^#?[0-9a-f]{3,6}$/i.test(hex)) {
+  if (!/^#?[0-9a-f]{3,6}$/i.test(hexRaw)) {
     alert("Introduce un código HEX válido.");
     return;
   }
@@ -76,21 +81,24 @@ function analizarColor() {
     return;
   }
 
+  const hex = hexRaw.replace("#", "");
   const ojosTipo = ojos.value;
   const rgb = hexToRgb(hex);
 
-  const resultadoDiv = document.getElementById('resultado');
-  const titulo = document.getElementById('titulo');
-  const descripcion = document.getElementById('descripcion');
-  const imagen = document.getElementById('imagen');
+  if (!esColorHumano(rgb, hex)) {
+    mostrarResultado(
+      "Color sospechoso",
+      "Bro no mientas, si de verdad eres de ese color busca un médico.",
+      "nohumano.jpg"
+    );
+    return;
+  }
 
-  // 1 de cada 4 veces: Gaylandia
   if (Math.random() < 0.25) {
     mostrarResultado("Gaylandia", "Un lugar mágico donde todo es posible.", "gaylandia.jpg");
     return;
   }
 
-  // Colores broma
   for (const broma of coloresBroma) {
     if (broma.test(rgb)) {
       mostrarResultado(broma.nombre, `Bro tu gente se encuentra en ${broma.nombre}.`, `${broma.nombre.toLowerCase()}.jpg`);
@@ -98,7 +106,6 @@ function analizarColor() {
     }
   }
 
-  // Determinar tono más cercano
   let tonoCercano = tonosPiel[0];
   let menorDistancia = Infinity;
   for (const t of tonosPiel) {
@@ -111,20 +118,12 @@ function analizarColor() {
 
   const posibles = paises[tonoCercano.tono][ojosTipo];
   const elegido = posibles[Math.floor(Math.random() * posibles.length)];
-if (elegido === "Gaylandia") {
-  mostrarResultado(
-    "Gaylandia",
-    "Una tierra mística donde los unicornios votan, los árboles susurran cuentos y todo el mundo sabe bailar salsa.",
-    "gaylandia.jpg"
-  );
-} else {
+
   mostrarResultado(
     elegido,
     `Tu tono de piel y tipo de ojos es común en ${elegido}.`,
     `${elegido.toLowerCase().replace(/ /g, "_")}.jpg`
   );
-}
-
 }
 
 function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
@@ -140,21 +139,17 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo) {
   descripcion.textContent = descripcionTexto;
   imagen.src = `imagenes/${imagenArchivo}`;
 
-  // Lanza el confeti 🎉
-confetti({
-  particleCount: 150,
-  spread: 70,
-  origin: { y: 0.6 }
-});
-
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
 }
 
 function reiniciar() {
-  // Limpiar datos
   document.getElementById('hexInput').value = '';
   document.querySelectorAll('input[name="ojos"]').forEach(input => input.checked = false);
 
-  // Mostrar pantalla inicial
   document.getElementById('pantalla3').style.display = 'none';
   document.getElementById('pantalla1').style.display = 'block';
 }
