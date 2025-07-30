@@ -269,7 +269,7 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
       origin: { y: 0.6 }
     });
   }
-  document.getElementById("bloqueSuscripcion").style.display = "block";
+  document.getElementById("bloqueSuscripcion").style.display = "flex";
 }
 
 
