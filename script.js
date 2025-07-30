@@ -240,9 +240,12 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
   pantalla3.style.display = 'block';
 
   // Asignar contenido
-  titulo.textContent = tituloTexto;
-  descripcion.textContent = descripcionTexto;
-  imagen.src = `imagenes/${quitarTildes(imagenArchivo).toLowerCase()}.jpg`;
+  if (imagenArchivo.endsWith('.jpg') || imagenArchivo.endsWith('.png')) {
+    imagen.src = `imagenes/${imagenArchivo}`;
+  } else {
+    imagen.src = `imagenes/${quitarTildes(imagenArchivo).toLowerCase()}.jpg`;
+  }
+
 
   // Sonidos según el título del resultado
   if (tituloTexto === "Gaylandia") {
