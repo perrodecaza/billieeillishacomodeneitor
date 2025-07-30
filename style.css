@@ -77,25 +77,24 @@ h1, h2, h3 {
 
 /* Animaciones ajustadas para que no haya pantalla negra */
 @keyframes fade1 {
-  0%   { opacity: 1; }
-  28%  { opacity: 1; }
-  33%  { opacity: 0; }
-  100% { opacity: 0; }
+  0%   { opacity: 0.05; }
+  10%  { opacity: 1; }
+  28%  { opacity: 0.05; }
+  100% { opacity: 0.05; }
 }
 
 @keyframes fade2 {
-  0%, 28%  { opacity: 0; }
+  0%, 28%  { opacity: 0.05; }
   33%      { opacity: 1; }
-  61%      { opacity: 1; }
-  66%      { opacity: 0; }
-  100%     { opacity: 0; }
+  50%      { opacity: 0.05; }
+  100%     { opacity: 0.05; }
 }
 
 @keyframes fade3 {
-  0%, 61%  { opacity: 0; }
-  66%      { opacity: 1; }
-  95%      { opacity: 1; }
-  100%     { opacity: 0; }
+  0%, 50%  { opacity: 0.05; }
+  55%      { opacity: 1; }
+  72%      { opacity: 0.05; }
+  100%     { opacity: 0.05; }
 }
 
 /* Inputs y botones */
