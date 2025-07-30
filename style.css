@@ -54,48 +54,40 @@ h1, h2, h3 {
   transition: opacity 1s ease-in-out;
 }
 
-.slide1 {
+.slide:nth-child(1) {
   background-image: url('imagenes/fondo1.jpg');
-  animation: fade1 18s infinite;
-  animation-delay: 0s;
-  z-index: 1;
+  animation: fade1 18s infinite ease-in-out;
 }
-
-.slide2 {
+.slide:nth-child(2) {
   background-image: url('imagenes/fondo2.jpg');
-  animation: fade2 18s infinite;
-  animation-delay: 0s;
-  z-index: 1;
+  animation: fade2 18s infinite ease-in-out;
 }
-
-.slide3 {
+.slide:nth-child(3) {
   background-image: url('imagenes/fondo3.jpg');
-  animation: fade3 18s infinite;
-  animation-delay: 0s;
-  z-index: 1;
+  animation: fade3 18s infinite ease-in-out;
 }
 
 /* Animaciones ajustadas para que no haya pantalla negra */
 @keyframes fade1 {
-  0%   { opacity: 0.05; }
-  10%  { opacity: 1; }
-  28%  { opacity: 0.05; }
-  100% { opacity: 0.05; }
+  0%   { opacity: 1; }
+  30%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 @keyframes fade2 {
-  0%, 28%  { opacity: 0.05; }
-  33%      { opacity: 1; }
-  50%      { opacity: 0.05; }
-  100%     { opacity: 0.05; }
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  60%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 @keyframes fade3 {
-  0%, 50%  { opacity: 0.05; }
-  55%      { opacity: 1; }
-  72%      { opacity: 0.05; }
-  100%     { opacity: 0.05; }
+  0%   { opacity: 0; }
+  60%  { opacity: 1; }
+  90%  { opacity: 0; }
+  100% { opacity: 0; }
 }
+
 
 /* Inputs y botones */
 input, button {
