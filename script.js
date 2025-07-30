@@ -90,7 +90,7 @@ const coloresBroma = [
     test: ({ r, g, b }) => r > 200 && g > 200 && b < 100 
   },
   { 
-    nombre: "Shrek",
+    nombre: "Tenemos al mismísimo Shrek",
     test: ({ r, g, b }) => g > 120 && r < 100,
     mensaje: "Ah perro, eres Shrek.",
     imagen: "martianmanhunter.jpg",
@@ -196,7 +196,7 @@ function analizarColor() {
   );
 }
 
-function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true, sonido = null) {
+function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confettiActivo = true) {
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'none';
   document.getElementById('pantalla3').style.display = 'block';
@@ -207,7 +207,16 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
 
   titulo.textContent = tituloTexto;
   descripcion.textContent = descripcionTexto;
-  imagen.src = `imagenes/${quitarTildes(imagenArchivo.toLowerCase())}`;
+
+  // Oculta la imagen mientras se carga la nueva
+  imagen.style.opacity = 0;
+
+  // Asigna la nueva ruta y muestra la imagen solo cuando esté cargada
+  const nuevaSrc = `imagenes/${quitarTildes(imagenArchivo.toLowerCase())}`;
+  imagen.onload = () => {
+    imagen.style.opacity = 1;
+  };
+  imagen.src = nuevaSrc;
 
   if (confettiActivo) {
     confetti({
@@ -216,19 +225,29 @@ function mostrarResultado(tituloTexto, descripcionTexto, imagenArchivo, confetti
       origin: { y: 0.6 }
     });
   }
-
-  if (sonido) {
-    sonido.play();
-  }
 }
 
 function reiniciar() {
+  // Limpiar campos de entrada
   document.getElementById('hexInput').value = '';
   document.querySelectorAll('input[name="ojos"]').forEach(input => input.checked = false);
 
-  document.getElementById('pantalla3').style.display = 'none';
+  // Ocultar pantalla de resultado
+  const pantalla3 = document.getElementById('pantalla3');
+  pantalla3.style.display = 'none';
+
+  // Limpiar clases de efectos visuales si algún día se usan
+  pantalla3.classList.remove('martianFX', 'gayFX', 'oscuroFX');
+
+  // Limpiar imagen anterior
+  const imagen = document.getElementById('imagen');
+  imagen.src = '';
+  imagen.style.opacity = 0;
+
+  // Volver a mostrar la primera pantalla
   document.getElementById('pantalla1').style.display = 'block';
 }
+
 
 function quitarTildes(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ñ/g, "n").replace(/ /g, "_");
