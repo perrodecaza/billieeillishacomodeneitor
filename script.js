@@ -136,12 +136,14 @@ for (const broma of coloresBroma) {
 }
 
   if (!esColorHumano(rgb, hex)) {
+    sonidos.alerta.currentTime = 0;
+    sonidos.alerta.play();
+
     mostrarResultado(
       "Color sospechoso",
       "Bro no mientas, si de verdad eres de ese color busca un médico.",
       "nohumano.jpg",
-      false,
-      sonidos.alerta
+      false
     );
     return;
   }
