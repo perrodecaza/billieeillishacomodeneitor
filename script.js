@@ -22,6 +22,8 @@ function irAPantalla2() {
 
   document.getElementById('pantalla1').style.display = 'none';
   document.getElementById('pantalla2').style.display = 'block';
+  document.getElementById('bannerPaleta').style.display = 'none';
+
 }
 
 function hexToRgb(hex) {
@@ -315,6 +317,7 @@ function reiniciar() {
   }
   document.getElementById("bloqueSuscripcion").style.display = "none";
   document.getElementById('imagen').style.display = 'none';
+  document.getElementById('bannerPaleta').style.display = 'block';
 }
 
 

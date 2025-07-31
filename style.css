@@ -297,3 +297,35 @@ p {
   display: none;
 }
 
+.banner-paleta {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Bitcount Prop Single', sans-serif;
+  margin: 25px auto 10px auto;
+  width: fit-content;
+  max-width: 90%;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+.banner-paleta a {
+  text-decoration: none;
+  color: white;
+  font-size: 1em;
+}
+
+.banner-paleta .rojo {
+  color: red;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .banner-paleta {
+    font-size: 0.9em;
+    padding: 10px 16px;
+  }
+}
+
