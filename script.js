@@ -81,7 +81,7 @@ const paises = {
   },
   medio: {
     claros: ["Portugal", "Turquía", "Uzbekistán"],
-    oscuros: ["México", "Colombia", "Perú", "Brasil", "India", "USA"],
+    oscuros: ["México", "Colombia", "Perú", "Brasil", "India"],
     asiaticos: ["Vietnam", "Tailandia", "Filipinas", "Malasia"]
   },
   oscuro: {
